@@ -50,14 +50,34 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: '14 Tugi API is running' });
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: '14 Tugi API Server',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      beats: '/api/beats',
+      posters: '/api/posters',
+      auth: '/api/auth'
+    }
+  });
+});
+
+// 404 handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found', path: req.path });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-app.listen(PORT, () => {
+// Bind to 0.0.0.0 for Render (required for external access)
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📍 API available at http://localhost:${PORT}/api`);
+  console.log(`📍 API available at http://0.0.0.0:${PORT}/api`);
 });
 
