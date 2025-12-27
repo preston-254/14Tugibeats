@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Beats - 14 Tugi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .upload-page {
+            min-height: 100vh;
+            padding-top: 100px;
+            background: var(--dark-bg);
+        }
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .upload-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .upload-form {
+            background: var(--dark-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        .form-section label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .form-section input,
+        .form-section select,
+        .form-section textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-tertiary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-section input:focus,
+        .form-section select:focus,
+        .form-section textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--dark-bg);
+        }
+        .file-upload-area {
+            border: 3px dashed var(--primary-color);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--dark-tertiary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .file-upload-area:hover {
+            background: var(--dark-bg);
+            border-color: var(--secondary-color);
+        }
+        .file-upload-area.dragover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: var(--secondary-color);
+        }
+        .file-input {
+            display: none;
+        }
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .uploaded-files {
+            margin-top: 1rem;
+        }
+        .file-item {
+            background: var(--dark-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-name {
+            color: var(--text-primary);
+        }
+        .file-size {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .remove-file {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            color: var(--secondary-color);
+        }
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .login-container {
+            background: var(--dark-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-header h2 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        .login-header p {
+            color: var(--text-secondary);
+        }
+        .login-error {
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+        .admin-badge {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-number">14</span>
+                <span class="brand-name">TUGI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#hits">Hits</a></li>
+                <li><a href="index.html#beats">Beats</a></li>
+                <li><a href="index.html#piano">Play Piano</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="upload.html" class="upload-link">Upload Beats</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Admin Access</h2>
+                <p>This page is restricted to 14 Tugi only</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="login-error" id="loginError"></p>
+            </form>
+            <a href="index.html" class="back-link" style="margin-top: 1rem; display: block; text-align: center;">← Back to Home</a>
+        </div>
+    </div>
+
+    <div class="upload-page" id="uploadPage" style="display: none;">
+        <div class="upload-container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <div class="upload-header">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h1 class="section-title">Upload Beats</h1>
+                        <p class="section-subtitle">Upload your new beats to the store</p>
+                    </div>
+                    <button class="btn" id="logoutBtn" style="background: var(--gradient-2); padding: 0.8rem 1.5rem; border: none; border-radius: 10px; color: var(--text-primary); font-weight: 600; cursor: pointer; transition: all 0.3s; white-space: nowrap;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        🚪 Log Out
+                    </button>
+                </div>
+                <div class="admin-badge">🔒 Admin Mode - 14 Tugi</div>
+            </div>
+
+            <form class="upload-form" id="uploadForm">
+                <div class="form-section">
+                    <label>Beat Title *</label>
+                    <input type="text" name="title" required placeholder="Enter beat title">
+                </div>
+
+                <div class="form-section">
+                    <label>Category *</label>
+                    <select name="category" required>
+                        <option value="">Select category</option>
+                        <option value="hiphop">Hip Hop</option>
+                        <option value="afrobeats">Afrobeats</option>
+                        <option value="r&b">R&B</option>
+                        <option value="trap">Trap</option>
+                        <option value="pop">Pop</option>
+                        <option value="dancehall">Dancehall</option>
+                    </select>
+                </div>
+
+                <div class="form-section">
+                    <label>BPM *</label>
+                    <input type="number" name="bpm" required placeholder="e.g., 120" min="60" max="200">
+                </div>
+
+                <div class="form-section">
+                    <label>Price ($) *</label>
+                    <input type="number" name="price" required placeholder="e.g., 49.99" min="0" step="0.01">
+                </div>
+
+                <div class="form-section">
+                    <label>Tags</label>
+                    <input type="text" name="tags" placeholder="e.g., Dark, Upbeat, Chill (comma separated)">
+                </div>
+
+                <div class="form-section">
+                    <label>Description</label>
+                    <textarea name="description" rows="4" placeholder="Describe your beat..."></textarea>
+                </div>
+
+                <div class="form-section">
+                    <label>Upload Beat File *</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="upload-icon">🎵</div>
+                        <p style="color: var(--text-primary); margin-bottom: 0.5rem;">Click or drag to upload</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">MP3, WAV, or FLAC (Max 50MB)</p>
+                        <input type="file" class="file-input" id="beatFile" accept="audio/*" required>
+                    </div>
+                    <div class="uploaded-files" id="uploadedFiles"></div>
+                </div>
+
+                <div class="form-section">
+                    <label>Upload Cover Art (Optional)</label>
+                    <div class="file-upload-area" id="coverUploadArea">
+                        <div class="upload-icon">🖼️</div>
+                        <p style="color: var(--text-primary); margin-bottom: 0.5rem;">Click or drag to upload</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">JPG, PNG (Max 10MB)</p>
+                        <input type="file" class="file-input" id="coverFile" accept="image/*">
+                    </div>
+                    <div class="uploaded-files" id="uploadedCover"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Upload Beat</button>
+            </form>
+
+            <div class="upload-header" style="margin-top: 4rem;">
+                <h2 class="section-title">Upload Listening Party Poster</h2>
+                <p class="section-subtitle">Upload posters for upcoming DJ listening parties</p>
+            </div>
+
+            <form class="upload-form" id="posterForm">
+                <div class="form-section">
+                    <label>Event Title *</label>
+                    <input type="text" name="eventTitle" required placeholder="e.g., Spring Listening Party 2024">
+                </div>
+
+                <div class="form-section">
+                    <label>Event Date *</label>
+                    <input type="date" name="eventDate" required>
+                </div>
+
+                <div class="form-section">
+                    <label>Event Time</label>
+                    <input type="time" name="eventTime" placeholder="e.g., 19:00">
+                </div>
+
+                <div class="form-section">
+                    <label>Venue</label>
+                    <input type="text" name="venue" placeholder="Event location">
+                </div>
+
+                <div class="form-section">
+                    <label>Ticket Price (KES) *</label>
+                    <input type="number" name="ticketPrice" required placeholder="e.g., 500" min="0">
+                </div>
+
+                <div class="form-section">
+                    <label>Upload Poster Image *</label>
+                    <div class="file-upload-area" id="posterUploadArea">
+                        <div class="upload-icon">🖼️</div>
+                        <p style="color: var(--text-primary); margin-bottom: 0.5rem;">Click or drag to upload</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">JPG, PNG (Recommended: 1200x1600px)</p>
+                        <input type="file" class="file-input" id="posterFile" accept="image/*">
+                    </div>
+                    <div class="uploaded-files" id="uploadedPoster"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;" id="posterSubmitBtn">Upload Poster</button>
+            </form>
+
+            <div class="upload-header" style="margin-top: 4rem;">
+                <h2 class="section-title">Manage Beats</h2>
+                <p class="section-subtitle">View, edit, and delete beats from the store</p>
+            </div>
+
+            <div class="upload-form" id="beatsManagement" style="overflow-x: auto;">
+                <table id="beatsTable" style="width: 100%; border-collapse: collapse; min-width: 800px; background: var(--dark-bg);">
+                    <thead>
+                        <tr style="background: var(--dark-tertiary); border-bottom: 2px solid var(--primary-color);">
+                            <th style="padding: 1rem; text-align: left; color: var(--text-primary); font-weight: 600;">Title</th>
+                            <th style="padding: 1rem; text-align: left; color: var(--text-primary); font-weight: 600;">Category</th>
+                            <th style="padding: 1rem; text-align: left; color: var(--text-primary); font-weight: 600;">BPM</th>
+                            <th style="padding: 1rem; text-align: left; color: var(--text-primary); font-weight: 600;">Price</th>
+                            <th style="padding: 1rem; text-align: center; color: var(--text-primary); font-weight: 600;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="beatsTableBody">
+                        <!-- Beats will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="upload-header" style="margin-top: 4rem;">
+                <h2 class="section-title">Manage Posters</h2>
+                <p class="section-subtitle">View and delete uploaded posters</p>
+            </div>
+
+            <div class="upload-form" id="postersList">
+                <div id="existingPosters" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                    <!-- Posters will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="api-config.js"></script>
+    <script src="api.js"></script>
+    <script>
+        // Authentication - Using API
+        const CORRECT_USERNAME = 'tugi';
+        const CORRECT_PASSWORD = '14tugi2024';
+        
+        const loginModal = document.getElementById('loginModal');
+        const uploadPage = document.getElementById('uploadPage');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to log out?')) {
+                    sessionStorage.removeItem('tugiLoggedIn');
+                    window.location.reload();
+                }
+            });
+        }
+        
+        // Check if already logged in
+        if (sessionStorage.getItem('tugiLoggedIn') === 'true') {
+            showUploadPage();
+        } else {
+            showLoginModal();
+        }
+        
+        function showLoginModal() {
+            loginModal.style.display = 'flex';
+            uploadPage.style.display = 'none';
+        }
+        
+        function showUploadPage() {
+            loginModal.style.display = 'none';
+            uploadPage.style.display = 'block';
+        }
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.toLowerCase();
+            const password = document.getElementById('password').value;
+            
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                sessionStorage.setItem('tugiLoggedIn', 'true');
+                showUploadPage();
+                loginError.textContent = '';
+            } else {
+                loginError.textContent = 'Invalid credentials. Access denied.';
+                document.getElementById('password').value = '';
+            }
+        });
+        
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const coverUploadArea = document.getElementById('coverUploadArea');
+        const beatFileInput = document.getElementById('beatFile');
+        const coverFileInput = document.getElementById('coverFile');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+        const uploadedCover = document.getElementById('uploadedCover');
+
+        // Beat file upload
+        fileUploadArea.addEventListener('click', () => beatFileInput.click());
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.add('dragover');
+        });
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.classList.remove('dragover');
+        });
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                beatFileInput.files = e.dataTransfer.files;
+                displayFile(beatFileInput.files[0], uploadedFiles);
+            }
+        });
+        beatFileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                displayFile(e.target.files[0], uploadedFiles);
+            }
+        });
+
+        // Cover file upload
+        coverUploadArea.addEventListener('click', () => coverFileInput.click());
+        coverUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            coverUploadArea.classList.add('dragover');
+        });
+        coverUploadArea.addEventListener('dragleave', () => {
+            coverUploadArea.classList.remove('dragover');
+        });
+        coverUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            coverUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                coverFileInput.files = e.dataTransfer.files;
+                displayFile(coverFileInput.files[0], uploadedCover, true);
+            }
+        });
+        coverFileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                displayFile(e.target.files[0], uploadedCover, true);
+            }
+        });
+
+        function displayFile(file, container, isImage = false) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            
+            if (isImage) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.style.width = '50px';
+                img.style.height = '50px';
+                img.style.borderRadius = '5px';
+                img.style.marginRight = '1rem';
+                fileItem.appendChild(img);
+            }
+            
+            const fileInfo = document.createElement('div');
+            fileInfo.style.flex = '1';
+            fileInfo.innerHTML = `
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+            `;
+            fileItem.appendChild(fileInfo);
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-file';
+            removeBtn.textContent = 'Remove';
+            removeBtn.onclick = () => {
+                container.removeChild(fileItem);
+                if (isImage) coverFileInput.value = '';
+                else beatFileInput.value = '';
+            };
+            fileItem.appendChild(removeBtn);
+            
+            container.innerHTML = '';
+            container.appendChild(fileItem);
+        }
+
+        // Beat upload form handler is defined later with API integration
+
+        // Poster upload
+        const posterUploadArea = document.getElementById('posterUploadArea');
+        const posterFileInput = document.getElementById('posterFile');
+        const uploadedPoster = document.getElementById('uploadedPoster');
+
+        posterUploadArea.addEventListener('click', () => posterFileInput.click());
+        posterUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            posterUploadArea.classList.add('dragover');
+        });
+        posterUploadArea.addEventListener('dragleave', () => {
+            posterUploadArea.classList.remove('dragover');
+        });
+        posterUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            posterUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                posterFileInput.files = e.dataTransfer.files;
+                displayFile(posterFileInput.files[0], uploadedPoster, true);
+            }
+        });
+        posterFileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                displayFile(e.target.files[0], uploadedPoster, true);
+            }
+        });
+
+        document.getElementById('posterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const posterFile = posterFileInput.files[0];
+            
+            // Validate all required fields
+            const eventTitle = formData.get('eventTitle');
+            const eventDate = formData.get('eventDate');
+            const ticketPrice = formData.get('ticketPrice');
+            
+            if (!eventTitle || !eventTitle.trim()) {
+                alert('Please enter an event title');
+                document.querySelector('[name="eventTitle"]').focus();
+                return;
+            }
+            
+            if (!eventDate) {
+                alert('Please select an event date');
+                document.querySelector('[name="eventDate"]').focus();
+                return;
+            }
+            
+            if (!ticketPrice || parseFloat(ticketPrice) <= 0) {
+                alert('Please enter a valid ticket price');
+                document.querySelector('[name="ticketPrice"]').focus();
+                return;
+            }
+            
+            if (!posterFile) {
+                alert('Please upload a poster image');
+                posterUploadArea.style.borderColor = 'var(--primary-color)';
+                setTimeout(() => {
+                    posterUploadArea.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+            
+            // Try API upload first
+            try {
+                if (window.api && window.api.posters) {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('title', eventTitle.trim());
+                    uploadFormData.append('date', eventDate);
+                    uploadFormData.append('time', formData.get('eventTime') || '');
+                    uploadFormData.append('venue', formData.get('venue') || '');
+                    uploadFormData.append('ticketPrice', parseFloat(ticketPrice) || 0);
+                    uploadFormData.append('posterImage', posterFile);
+                    
+                    const result = await window.api.posters.create(uploadFormData);
+                    alert('Poster uploaded successfully! It will appear on the Listening Parties section.');
+                    e.target.reset();
+                    uploadedPoster.innerHTML = '';
+                    posterFileInput.value = '';
+                    posterUploadArea.style.borderColor = '';
+                    await loadExistingPosters();
+                    return;
+                }
+            } catch (error) {
+                console.error('API upload failed, trying local storage:', error);
+                alert('API upload failed: ' + error.message + '. Trying local storage...');
+            }
+            
+            // Fallback to localStorage with base64
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const posterData = {
+                        id: Date.now().toString(),
+                        title: eventTitle.trim(),
+                        date: eventDate,
+                        time: formData.get('eventTime') || '',
+                        venue: formData.get('venue') || '',
+                        ticketPrice: parseFloat(ticketPrice) || 0,
+                        posterImage: event.target.result, // Base64 image
+                        uploadedAt: new Date().toISOString()
+                    };
+                    
+                    // Get existing posters from localStorage
+                    let posters = JSON.parse(localStorage.getItem('listeningPartyPosters') || '[]');
+                    posters.push(posterData);
+                    localStorage.setItem('listeningPartyPosters', JSON.stringify(posters));
+                    
+                    alert('Poster uploaded successfully! (Saved locally)');
+                    e.target.reset();
+                    uploadedPoster.innerHTML = '';
+                    posterFileInput.value = '';
+                    posterUploadArea.style.borderColor = '';
+                    loadExistingPosters();
+                } catch (error) {
+                    console.error('Error saving poster:', error);
+                    alert('Error uploading poster. Please try again.');
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Error reading the poster file. Please try again.');
+            };
+            
+            reader.readAsDataURL(posterFile);
+        });
+
+        // Load and display existing posters for management
+        async function loadExistingPosters() {
+            const existingPosters = document.getElementById('existingPosters');
+            if (!existingPosters) return;
+            
+            let posters = [];
+            
+            // Try API first
+            try {
+                if (window.api && window.api.posters) {
+                    posters = await window.api.posters.getAll();
+                }
+            } catch (error) {
+                console.log('API fetch failed, using localStorage:', error);
+                // Fallback to localStorage
+                posters = JSON.parse(localStorage.getItem('listeningPartyPosters') || '[]');
+            }
+            
+            if (posters.length === 0) {
+                existingPosters.innerHTML = '<p style="color: var(--text-secondary); text-align: center; grid-column: 1 / -1; padding: 2rem;">No posters uploaded yet.</p>';
+                return;
+            }
+            
+            existingPosters.innerHTML = '';
+            posters.forEach(poster => {
+                const posterCard = document.createElement('div');
+                posterCard.className = 'poster-card';
+                
+                // Handle image URL (could be base64, relative path, or full URL)
+                let imageSrc = poster.posterImage;
+                if (poster.posterImage && !poster.posterImage.startsWith('data:') && !poster.posterImage.startsWith('http')) {
+                    // If it's a relative path, prepend API base URL
+                    imageSrc = (window.API_BASE_URL?.replace('/api', '') || '') + poster.posterImage;
+                }
+                
+                posterCard.style.cssText = 'background: var(--dark-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);';
+                const posterId = poster._id || poster.id;
+                posterCard.innerHTML = `
+                    <img src="${imageSrc}" alt="${poster.title}" style="width: 100%; height: 200px; object-fit: cover;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%23999%22 font-family=%22sans-serif%22 font-size=%2214%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3ENo Image%3C/text%3E%3C/svg%3E';">
+                    <div style="padding: 1.5rem;">
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">${poster.title}</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.3rem 0;"><strong>Date:</strong> ${new Date(poster.date).toLocaleDateString()}</p>
+                        ${poster.time ? `<p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.3rem 0;"><strong>Time:</strong> ${poster.time}</p>` : ''}
+                        ${poster.venue ? `<p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.3rem 0;"><strong>Venue:</strong> ${poster.venue}</p>` : ''}
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.3rem 0;"><strong>Price:</strong> KES ${poster.ticketPrice.toLocaleString()}</p>
+                        <button class="btn" onclick="deletePoster('${posterId}')" style="background: var(--gradient-2); width: 100%; margin-top: 1rem; padding: 0.8rem; border: none; border-radius: 10px; color: var(--text-primary); font-weight: 600; cursor: pointer;">
+                            🗑️ Delete Poster
+                        </button>
+                    </div>
+                `;
+                existingPosters.appendChild(posterCard);
+            });
+        }
+
+        // Delete poster function
+        async function deletePoster(posterId) {
+            if (!confirm('Are you sure you want to delete this poster? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                // Try API first
+                if (window.api && window.api.posters) {
+                    await window.api.posters.delete(posterId);
+                    alert('Poster deleted successfully!');
+                    loadExistingPosters();
+                    return;
+                }
+            } catch (error) {
+                console.error('API delete failed:', error);
+            }
+            
+            // Fallback to localStorage
+            try {
+                let posters = JSON.parse(localStorage.getItem('listeningPartyPosters') || '[]');
+                posters = posters.filter(p => (p._id || p.id) !== posterId);
+                localStorage.setItem('listeningPartyPosters', JSON.stringify(posters));
+                alert('Poster deleted successfully!');
+                loadExistingPosters();
+            } catch (error) {
+                console.error('Error deleting poster:', error);
+                alert('Error deleting poster. Please try again.');
+            }
+        }
+
+        // Make deletePoster available globally
+        window.deletePoster = deletePoster;
+
+        // Load and display beats for management
+        async function loadBeatsTable() {
+            const beatsTableBody = document.getElementById('beatsTableBody');
+            if (!beatsTableBody) return;
+            
+            let beats = [];
+            
+            // Try API first
+            try {
+                if (window.api && window.api.beats) {
+                    beats = await window.api.beats.getAll();
+                }
+            } catch (error) {
+                console.log('API fetch failed, using localStorage:', error);
+                // Fallback to localStorage
+                beats = JSON.parse(localStorage.getItem('uploadedBeats') || '[]');
+            }
+            
+            if (beats.length === 0) {
+                beatsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-secondary);">
+                            No beats uploaded yet. Upload beats using the form above.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            beatsTableBody.innerHTML = '';
+            beats.forEach((beat, index) => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+                const beatId = beat._id || beat.id;
+                row.innerHTML = `
+                    <td style="padding: 1rem; color: var(--text-primary);">
+                        <input type="text" value="${beat.title || 'Untitled'}" class="beat-title-input" data-beat-id="${beatId}" style="background: var(--dark-tertiary); border: 1px solid transparent; padding: 0.5rem; border-radius: 5px; color: var(--text-primary); width: 100%; font-family: 'Poppins', sans-serif;">
+                    </td>
+                    <td style="padding: 1rem; color: var(--text-secondary);">${beat.category || 'N/A'}</td>
+                    <td style="padding: 1rem; color: var(--text-secondary);">${beat.bpm || 'N/A'}</td>
+                    <td style="padding: 1rem; color: var(--text-secondary);">$${beat.price || '0.00'}</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <button onclick="deleteBeat('${beatId}')" style="background: var(--gradient-2); border: none; padding: 0.5rem 1rem; border-radius: 5px; color: var(--text-primary); cursor: pointer; font-weight: 600; margin: 0 0.25rem;">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                beatsTableBody.appendChild(row);
+            });
+            
+            // Add event listeners for title editing
+            document.querySelectorAll('.beat-title-input').forEach(input => {
+                input.addEventListener('blur', (e) => {
+                    const beatId = e.target.dataset.beatId;
+                    const newTitle = e.target.value.trim();
+                    if (newTitle) {
+                        updateBeatTitle(beatId, newTitle);
+                    }
+                });
+            });
+        }
+
+        async function updateBeatTitle(beatId, newTitle) {
+            try {
+                // Try API first
+                if (window.api && window.api.beats) {
+                    await window.api.beats.update(beatId, { title: newTitle });
+                    return;
+                }
+            } catch (error) {
+                console.error('API update failed:', error);
+            }
+            
+            // Fallback to localStorage
+            let beats = JSON.parse(localStorage.getItem('uploadedBeats') || '[]');
+            const beat = beats.find(b => (b._id || b.id) === beatId);
+            if (beat) {
+                beat.title = newTitle;
+                localStorage.setItem('uploadedBeats', JSON.stringify(beats));
+            }
+        }
+
+        async function deleteBeat(beatId) {
+            if (!confirm('Are you sure you want to delete this beat?')) {
+                return;
+            }
+            
+            try {
+                // Try API first
+                if (window.api && window.api.beats) {
+                    await window.api.beats.delete(beatId);
+                    alert('Beat deleted successfully!');
+                    loadBeatsTable();
+                    return;
+                }
+            } catch (error) {
+                console.error('API delete failed:', error);
+            }
+            
+            // Fallback to localStorage
+            let beats = JSON.parse(localStorage.getItem('uploadedBeats') || '[]');
+            beats = beats.filter(b => (b._id || b.id) !== beatId);
+            localStorage.setItem('uploadedBeats', JSON.stringify(beats));
+            loadBeatsTable();
+        }
+
+        window.deleteBeat = deleteBeat;
+
+        // Beat upload form handler with API integration
+        const uploadForm = document.getElementById('uploadForm');
+        if (uploadForm && !uploadForm.hasAttribute('data-handler-attached')) {
+            uploadForm.setAttribute('data-handler-attached', 'true');
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const beatFile = beatFileInput.files[0];
+                const coverFile = coverFileInput.files[0];
+                
+                if (!beatFile) {
+                    alert('Please upload a beat file');
+                    return;
+                }
+                
+                // Add files to FormData
+                if (beatFile) {
+                    formData.append('audioFile', beatFile);
+                }
+                if (coverFile) {
+                    formData.append('coverArt', coverFile);
+                }
+                
+                try {
+                    // Try API upload
+                    if (window.api && window.api.beats) {
+                        const result = await window.api.beats.create(formData);
+                        alert('Beat uploaded successfully!');
+                        e.target.reset();
+                        uploadedFiles.innerHTML = '';
+                        uploadedCover.innerHTML = '';
+                        await loadBeatsTable();
+                        return;
+                    }
+                } catch (error) {
+                    console.error('API upload failed:', error);
+                    alert('Error uploading beat: ' + error.message);
+                    return;
+                }
+                
+                // Fallback to localStorage
+                const beatData = {
+                    id: Date.now().toString(),
+                    title: formData.get('title') || 'Untitled',
+                    category: formData.get('category') || 'Other',
+                    bpm: formData.get('bpm') || 'N/A',
+                    price: formData.get('price') || '0.00',
+                    tags: formData.get('tags') || '',
+                    description: formData.get('description') || '',
+                    uploadedAt: new Date().toISOString()
+                };
+                
+                let beats = JSON.parse(localStorage.getItem('uploadedBeats') || '[]');
+                beats.push(beatData);
+                localStorage.setItem('uploadedBeats', JSON.stringify(beats));
+                
+                alert('Beat uploaded successfully! (Saved locally)');
+                e.target.reset();
+                uploadedFiles.innerHTML = '';
+                uploadedCover.innerHTML = '';
+                loadBeatsTable();
+            });
+        }
+
+        // Load existing posters when page loads
+        loadExistingPosters();
+        
+        // Load beats table when page loads
+        loadBeatsTable();
+    </script>
+</body>
+</html>
+
