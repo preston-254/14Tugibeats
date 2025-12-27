@@ -55,6 +55,7 @@ app.get('/', (req, res) => {
   res.json({ 
     message: '14 Tugi API Server',
     status: 'running',
+    version: '1.0.0',
     endpoints: {
       health: '/api/health',
       beats: '/api/beats',
