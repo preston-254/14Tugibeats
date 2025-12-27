@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Ticket - 14 Tugi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="api-config.js"></script>
+    <script src="api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        .ticket-purchase-page {
+            min-height: 100vh;
+            padding: 120px 20px 40px;
+            background: var(--dark-bg);
+        }
+        .purchase-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .purchase-card {
+            background: var(--dark-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+        .event-summary {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .event-summary h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .event-summary img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin: 1rem 0;
+            max-height: 300px;
+        }
+        .ticket-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-tertiary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--dark-bg);
+        }
+        .price-summary {
+            background: var(--dark-tertiary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        .price-row.total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .payment-section {
+            margin-top: 2rem;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .payment-method {
+            background: var(--dark-tertiary);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .payment-method:hover {
+            border-color: var(--primary-color);
+        }
+        .payment-method.selected {
+            border-color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.2);
+        }
+        .ticket-success {
+            text-align: center;
+            display: none;
+        }
+        .ticket-success.active {
+            display: block;
+        }
+        .qr-code-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 2rem 0;
+        }
+        #qrcode {
+            margin: 0 auto;
+        }
+        .ticket-details {
+            background: var(--dark-tertiary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        .ticket-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .ticket-details p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+        .download-ticket {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-number">14</span>
+                <span class="brand-name">TUGI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#hits">Hits</a></li>
+                <li><a href="index.html#beats">Beats</a></li>
+                <li><a href="index.html#piano">Piano</a></li>
+                <li><a href="index.html#booking">Booking</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="ticket-purchase-page">
+        <div class="purchase-container">
+            <div class="purchase-card" id="purchaseForm">
+                <div class="event-summary" id="eventSummary">
+                    <h2>Loading event details...</h2>
+                </div>
+
+                <form class="ticket-form" id="ticketPurchaseForm">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="fullName" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required placeholder="your@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" name="phone" required placeholder="e.g., 0700123456">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number of Tickets *</label>
+                        <select name="quantity" id="ticketQuantity" required>
+                            <option value="1">1 Ticket</option>
+                            <option value="2">2 Tickets</option>
+                            <option value="3">3 Tickets</option>
+                            <option value="4">4 Tickets</option>
+                            <option value="5">5 Tickets</option>
+                        </select>
+                    </div>
+
+                    <div class="price-summary">
+                        <div class="price-row">
+                            <span>Ticket Price:</span>
+                            <span id="unitPrice">KES 0</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Quantity:</span>
+                            <span id="quantityDisplay">1</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total:</span>
+                            <span id="totalPrice">KES 0</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-section">
+                        <label style="display: block; margin-bottom: 1rem; color: var(--text-primary); font-weight: 600;">Payment Method *</label>
+                        <div class="payment-methods">
+                            <div class="payment-method" data-method="mpesa">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                                <div>M-Pesa</div>
+                            </div>
+                            <div class="payment-method" data-method="card">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">💳</div>
+                                <div>Card</div>
+                            </div>
+                            <div class="payment-method" data-method="bank">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏦</div>
+                                <div>Bank Transfer</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="paymentMethod" id="paymentMethod" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Complete Purchase</button>
+                </form>
+            </div>
+
+            <div class="purchase-card ticket-success" id="ticketSuccess">
+                <div style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                    <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Ticket Purchased Successfully!</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Your ticket QR code is ready. Show this at the event entrance.</p>
+                    
+                    <div class="qr-code-container">
+                        <div id="qrcode"></div>
+                    </div>
+
+                    <div class="ticket-details" id="ticketDetailsDisplay">
+                        <!-- Ticket details will be displayed here -->
+                    </div>
+
+                    <button class="btn btn-primary download-ticket" id="downloadTicket">Download Ticket</button>
+                    <a href="index.html" class="btn" style="display: inline-block; margin-top: 1rem; text-decoration: none;">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get poster ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const posterId = urlParams.get('id');
+        
+        let selectedPoster = null;
+        let selectedPaymentMethod = null;
+
+        // Load poster data
+        async function loadPoster() {
+            let posters = [];
+            
+            // Try API first
+            try {
+                if (window.api && window.api.posters) {
+                    if (posterId) {
+                        selectedPoster = await window.api.posters.getById(posterId);
+                    } else {
+                        posters = await window.api.posters.getAll();
+                        selectedPoster = posters[0]; // Get first poster if no ID
+                    }
+                }
+            } catch (error) {
+                console.log('API fetch failed, using localStorage:', error);
+                // Fallback to localStorage
+                posters = JSON.parse(localStorage.getItem('listeningPartyPosters') || '[]');
+                selectedPoster = posters.find(p => (p._id || p.id) === posterId);
+            }
+            
+            if (!selectedPoster) {
+                document.getElementById('eventSummary').innerHTML = `
+                    <h2 style="color: var(--text-primary);">Event not found</h2>
+                    <p style="color: var(--text-secondary);">The event you're looking for doesn't exist.</p>
+                    <a href="index.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block; text-decoration: none;">Back to Home</a>
+                `;
+                return;
+            }
+            
+            // Display event summary
+            document.getElementById('eventSummary').innerHTML = `
+                <h2>${selectedPoster.title}</h2>
+                ${selectedPoster.posterImage ? `<img src="${selectedPoster.posterImage}" alt="${selectedPoster.title}">` : ''}
+                <p style="color: var(--text-secondary); margin-top: 1rem;">
+                    <strong>Date:</strong> ${new Date(selectedPoster.date).toLocaleDateString()}<br>
+                    ${selectedPoster.time ? `<strong>Time:</strong> ${selectedPoster.time}<br>` : ''}
+                    ${selectedPoster.venue ? `<strong>Venue:</strong> ${selectedPoster.venue}` : ''}
+                </p>
+            `;
+            
+            // Update price display
+            updatePrice();
+        }
+
+        // Update price display
+        function updatePrice() {
+            if (!selectedPoster) return;
+            
+            const quantity = parseInt(document.getElementById('ticketQuantity').value) || 1;
+            const unitPrice = selectedPoster.ticketPrice || 0;
+            const total = unitPrice * quantity;
+            
+            document.getElementById('unitPrice').textContent = `KES ${unitPrice.toLocaleString()}`;
+            document.getElementById('quantityDisplay').textContent = quantity;
+            document.getElementById('totalPrice').textContent = `KES ${total.toLocaleString()}`;
+        }
+
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+                selectedPaymentMethod = method.dataset.method;
+                document.getElementById('paymentMethod').value = selectedPaymentMethod;
+            });
+        });
+
+        // Quantity change
+        document.getElementById('ticketQuantity').addEventListener('change', updatePrice);
+
+        // Form submission
+        document.getElementById('ticketPurchaseForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            const formData = new FormData(e.target);
+            const quantity = parseInt(formData.get('quantity'));
+            const total = selectedPoster.ticketPrice * quantity;
+            
+            // Simulate payment processing
+            const processing = confirm(`Proceed with payment of KES ${total.toLocaleString()} via ${selectedPaymentMethod.toUpperCase()}?`);
+            
+            if (!processing) return;
+            
+            // Generate ticket
+            const ticketData = {
+                ticketId: 'TUGI-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                eventId: selectedPoster._id || posterId,
+                eventTitle: selectedPoster.title,
+                eventDate: selectedPoster.date,
+                eventTime: selectedPoster.time,
+                venue: selectedPoster.venue,
+                buyerName: formData.get('fullName'),
+                buyerEmail: formData.get('email'),
+                buyerPhone: formData.get('phone'),
+                quantity: quantity,
+                totalPrice: total,
+                paymentMethod: selectedPaymentMethod,
+                purchaseDate: new Date().toISOString(),
+                status: 'valid'
+            };
+            
+            // Save ticket to localStorage
+            let tickets = JSON.parse(localStorage.getItem('purchasedTickets') || '[]');
+            tickets.push(ticketData);
+            localStorage.setItem('purchasedTickets', JSON.stringify(tickets));
+            
+            // Generate QR code with link to ticket viewer
+            const ticketViewerUrl = `${window.location.origin}${window.location.pathname.replace('ticket-purchase.html', 'ticket-viewer.html')}?id=${ticketData.ticketId}`;
+            const qrData = ticketViewerUrl;
+            
+            // Display success page
+            document.getElementById('purchaseForm').style.display = 'none';
+            document.getElementById('ticketSuccess').classList.add('active');
+            
+            // Generate QR code
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: qrData,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // Display ticket details
+            document.getElementById('ticketDetailsDisplay').innerHTML = `
+                <h3>Ticket Details</h3>
+                <p><strong>Ticket ID:</strong> ${ticketData.ticketId}</p>
+                <p><strong>Event:</strong> ${ticketData.eventTitle}</p>
+                <p><strong>Date:</strong> ${new Date(ticketData.eventDate).toLocaleDateString()}</p>
+                ${ticketData.eventTime ? `<p><strong>Time:</strong> ${ticketData.eventTime}</p>` : ''}
+                ${ticketData.venue ? `<p><strong>Venue:</strong> ${ticketData.venue}</p>` : ''}
+                <p><strong>Name:</strong> ${ticketData.buyerName}</p>
+                <p><strong>Email:</strong> ${ticketData.buyerEmail}</p>
+                <p><strong>Phone:</strong> ${ticketData.buyerPhone}</p>
+                <p><strong>Quantity:</strong> ${ticketData.quantity}</p>
+                <p><strong>Total Paid:</strong> KES ${ticketData.totalPrice.toLocaleString()}</p>
+                <p><strong>Status:</strong> <span style="color: #4ecdc4;">Valid</span></p>
+            `;
+            
+            // Download ticket functionality
+            document.getElementById('downloadTicket').addEventListener('click', () => {
+                const ticketContent = `
+TICKET - ${ticketData.eventTitle}
+================================
+Ticket ID: ${ticketData.ticketId}
+Event: ${ticketData.eventTitle}
+Date: ${new Date(ticketData.eventDate).toLocaleDateString()}
+${ticketData.eventTime ? `Time: ${ticketData.eventTime}\n` : ''}
+${ticketData.venue ? `Venue: ${ticketData.venue}\n` : ''}
+Name: ${ticketData.buyerName}
+Email: ${ticketData.buyerEmail}
+Phone: ${ticketData.buyerPhone}
+Quantity: ${ticketData.quantity}
+Total: KES ${ticketData.totalPrice.toLocaleString()}
+Status: Valid
+
+Scan the QR code at the event entrance.
+                `;
+                
+                const blob = new Blob([ticketContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `ticket-${ticketData.ticketId}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+
+        // Load poster on page load
+        loadPoster();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Ticket - 14 Tugi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        .ticket-viewer-page {
+            min-height: 100vh;
+            padding: 120px 20px 40px;
+            background: var(--dark-bg);
+        }
+        .viewer-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .ticket-card {
+            background: var(--dark-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .ticket-header {
+            margin-bottom: 2rem;
+        }
+        .ticket-header h1 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .ticket-id {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .qr-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            display: inline-block;
+        }
+        #qrcode {
+            margin: 0 auto;
+        }
+        .ticket-info {
+            background: var(--dark-tertiary);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .ticket-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .info-value {
+            color: var(--text-primary);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        .status-valid {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+        .status-used {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        .scan-instructions {
+            background: var(--dark-tertiary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+        }
+        .error-message {
+            text-align: center;
+            color: var(--text-primary);
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-number">14</span>
+                <span class="brand-name">TUGI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#hits">Hits</a></li>
+                <li><a href="index.html#beats">Beats</a></li>
+                <li><a href="index.html#piano">Piano</a></li>
+                <li><a href="index.html#booking">Booking</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="ticket-viewer-page">
+        <div class="viewer-container">
+            <div class="ticket-card" id="ticketDisplay">
+                <div class="ticket-header">
+                    <h1>Event Ticket</h1>
+                    <div class="ticket-id" id="ticketIdDisplay">Loading...</div>
+                </div>
+                
+                <div class="qr-section">
+                    <div id="qrcode"></div>
+                </div>
+
+                <div class="ticket-info" id="ticketInfoDisplay">
+                    <!-- Ticket info will be displayed here -->
+                </div>
+
+                <div class="scan-instructions">
+                    <p><strong>📱 For Event Staff:</strong> Scan the QR code above to verify this ticket at the entrance.</p>
+                </div>
+            </div>
+
+            <div class="ticket-card error-message" id="errorDisplay" style="display: none;">
+                <h2>Ticket Not Found</h2>
+                <p>The ticket you're looking for doesn't exist or has been invalidated.</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block; text-decoration: none;">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get ticket ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const ticketId = urlParams.get('id');
+        
+        // Load ticket data
+        async function loadTicket() {
+            if (!ticketId) {
+                showError();
+                return;
+            }
+            
+            // Tickets are stored locally (no API needed for viewing)
+            const tickets = JSON.parse(localStorage.getItem('purchasedTickets') || '[]');
+            const ticket = tickets.find(t => t.ticketId === ticketId);
+            
+            if (!ticket) {
+                showError();
+                return;
+            }
+            
+            // Display ticket ID
+            document.getElementById('ticketIdDisplay').textContent = ticket.ticketId;
+            
+            // Generate QR code
+            const qrData = JSON.stringify({
+                ticketId: ticket.ticketId,
+                eventId: ticket.eventId,
+                buyerName: ticket.buyerName,
+                quantity: ticket.quantity
+            });
+            
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: qrData,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // Display ticket info
+            document.getElementById('ticketInfoDisplay').innerHTML = `
+                <h3>Ticket Information</h3>
+                <div class="info-row">
+                    <span class="info-label">Event:</span>
+                    <span class="info-value">${ticket.eventTitle}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Date:</span>
+                    <span class="info-value">${new Date(ticket.eventDate).toLocaleDateString()}</span>
+                </div>
+                ${ticket.eventTime ? `
+                <div class="info-row">
+                    <span class="info-label">Time:</span>
+                    <span class="info-value">${ticket.eventTime}</span>
+                </div>
+                ` : ''}
+                ${ticket.venue ? `
+                <div class="info-row">
+                    <span class="info-label">Venue:</span>
+                    <span class="info-value">${ticket.venue}</span>
+                </div>
+                ` : ''}
+                <div class="info-row">
+                    <span class="info-label">Name:</span>
+                    <span class="info-value">${ticket.buyerName}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">${ticket.buyerEmail}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value">${ticket.buyerPhone}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Quantity:</span>
+                    <span class="info-value">${ticket.quantity} ${ticket.quantity === 1 ? 'Ticket' : 'Tickets'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Total Paid:</span>
+                    <span class="info-value">KES ${ticket.totalPrice.toLocaleString()}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Payment Method:</span>
+                    <span class="info-value">${ticket.paymentMethod.toUpperCase()}</span>
+                </div>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <span class="status-badge ${ticket.status === 'valid' ? 'status-valid' : 'status-used'}">
+                        ${ticket.status === 'valid' ? '✓ Valid' : '✗ Used'}
+                    </span>
+                </div>
+            `;
+        }
+        
+        function showError() {
+            document.getElementById('ticketDisplay').style.display = 'none';
+            document.getElementById('errorDisplay').style.display = 'block';
+        }
+        
+        // Load ticket on page load
+        loadTicket();
+    </script>
+</body>
+</html>
+
