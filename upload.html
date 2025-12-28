@@ -533,32 +533,53 @@
         async function handleLogin() {
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
+            
+            if (!usernameInput || !passwordInput) {
+                console.error('Login inputs not found');
+                if (loginError) {
+                    loginError.textContent = 'Form error. Please refresh the page.';
+                    loginError.style.display = 'block';
+                }
+                return;
+            }
+            
             const username = usernameInput.value.trim().toLowerCase();
             const password = passwordInput.value.trim();
             
             // Clear previous errors
-            loginError.textContent = '';
-            loginError.style.display = 'none';
+            if (loginError) {
+                loginError.textContent = '';
+                loginError.style.display = 'none';
+            }
             
             // Validate inputs
             if (!username || !password) {
-                loginError.textContent = 'Please enter both username and password.';
-                loginError.style.display = 'block';
+                if (loginError) {
+                    loginError.textContent = 'Please enter both username and password.';
+                    loginError.style.display = 'block';
+                }
                 return;
             }
             
             // Disable button during login attempt
             const loginBtn = document.getElementById('loginSubmitBtn');
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Logging in...';
+            if (loginBtn) {
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'Logging in...';
+            }
             
             try {
+                // Small delay to ensure UI updates on mobile
+                await new Promise(resolve => setTimeout(resolve, 150));
+                
                 // Try API login first, fallback to hardcoded credentials
                 if (window.api && window.api.auth) {
                     try {
                         const response = await window.api.auth.login(username, password);
-                        if (response.token) {
-                            window.setAuthToken(response.token);
+                        if (response && response.token) {
+                            if (window.setAuthToken) {
+                                window.setAuthToken(response.token);
+                            }
                             sessionStorage.setItem('tugiLoggedIn', 'true');
                             showUploadPage();
                             return;
@@ -572,39 +593,66 @@
                 if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
                     sessionStorage.setItem('tugiLoggedIn', 'true');
                     showUploadPage();
-                    loginError.textContent = '';
-                    loginError.style.display = 'none';
+                    if (loginError) {
+                        loginError.textContent = '';
+                        loginError.style.display = 'none';
+                    }
                 } else {
-                    loginError.textContent = 'Invalid credentials. Please check your username and password.';
-                    loginError.style.display = 'block';
+                    if (loginError) {
+                        loginError.textContent = 'Invalid credentials. Username: ' + CORRECT_USERNAME;
+                        loginError.style.display = 'block';
+                    }
                     passwordInput.value = '';
-                    passwordInput.focus();
+                    // Don't focus on mobile as it might open keyboard
+                    if (window.innerWidth > 768) {
+                        setTimeout(() => passwordInput.focus(), 100);
+                    }
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                loginError.textContent = 'An error occurred. Please try again.';
-                loginError.style.display = 'block';
+                if (loginError) {
+                    loginError.textContent = 'An error occurred: ' + (error.message || 'Please try again.');
+                    loginError.style.display = 'block';
+                }
             } finally {
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Login';
+                if (loginBtn) {
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Login';
+                }
             }
         }
         
         // Form submit handler
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            await handleLogin();
-        });
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                await handleLogin();
+                return false;
+            }, { passive: false });
+        }
         
         // Button click handler (for mobile touch events)
         const loginBtn = document.getElementById('loginSubmitBtn');
         if (loginBtn) {
+            // Click handler
             loginBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                e.stopImmediatePropagation();
                 await handleLogin();
-            });
+                return false;
+            }, { passive: false });
+            
+            // Touch handler for better mobile support
+            loginBtn.addEventListener('touchend', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                await handleLogin();
+                return false;
+            }, { passive: false });
         }
         
         // Password toggle functionality
