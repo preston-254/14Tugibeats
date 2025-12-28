@@ -662,6 +662,19 @@ section {
     height: 20px;
 }
 
+.spotify-player-wrapper {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.spotify-player-wrapper iframe {
+    width: 100%;
+    min-height: 152px;
+    border: none;
+}
+
 .share-btn {
     background: var(--gradient-3);
     color: var(--text-primary);
@@ -2276,8 +2289,22 @@ section {
     
     .piano-container {
         width: 100%;
+        max-width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .piano-section {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .piano-section .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 1rem;
     }
     
     .white-key {

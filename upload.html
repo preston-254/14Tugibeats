@@ -184,23 +184,24 @@
         
         .toggle-password {
             position: absolute;
-            right: 0.5rem;
-            top: 0;
-            bottom: 0;
-            height: 100%;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
             align-items: center;
             justify-content: center;
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 0 0.75rem;
+            padding: 0.5rem;
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: all 0.3s;
             z-index: 10;
             min-width: 2.5rem;
-            border-radius: 0;
+            min-height: 2.5rem;
+            border-radius: 50%;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .toggle-password:hover {
@@ -209,7 +210,7 @@
         }
         
         .toggle-password:active {
-            transform: scale(0.95);
+            transform: translateY(-50%) scale(0.9);
             background: rgba(102, 126, 234, 0.2);
         }
         
@@ -660,9 +661,11 @@
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
         if (togglePassword && passwordInput) {
+            // Click handler
             togglePassword.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                e.stopImmediatePropagation();
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
                 togglePassword.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
@@ -671,7 +674,23 @@
                 if (eyeIcon) {
                     eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
                 }
-            });
+                return false;
+            }, { passive: false });
+            
+            // Touch handler for mobile
+            togglePassword.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+                const eyeIcon = togglePassword.querySelector('.eye-icon');
+                if (eyeIcon) {
+                    eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+                }
+                return false;
+            }, { passive: false });
         }
         
         // Also handle form submission on Enter key in password field
