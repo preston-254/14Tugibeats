@@ -161,8 +161,6 @@
             background: rgba(255, 68, 68, 0.1);
             border-radius: 5px;
             margin-top: 1rem;
-            margin-top: 1rem;
-            font-size: 0.9rem;
             min-height: 20px;
         }
         .admin-badge {
@@ -174,6 +172,36 @@
             font-weight: 600;
             margin-top: 1rem;
             font-size: 0.9rem;
+        }
+        
+        /* Mobile-specific fixes for login */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .login-container input {
+                font-size: 16px !important; /* Prevents zoom on iOS */
+                padding: 0.8rem;
+            }
+            
+            .login-container button {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1rem;
+                margin-top: 1rem;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+            
+            .login-container .form-group {
+                margin-bottom: 1.5rem;
+            }
+            
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
