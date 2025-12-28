@@ -154,8 +154,13 @@
             color: var(--text-secondary);
         }
         .login-error {
-            color: var(--primary-color);
+            color: #ff4444;
             text-align: center;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 5px;
+            margin-top: 1rem;
             margin-top: 1rem;
             font-size: 0.9rem;
             min-height: 20px;
@@ -198,17 +203,17 @@
                 <h2>Admin Access</h2>
                 <p>This page is restricted to 14 Tugi only</p>
             </div>
-            <form id="loginForm">
+            <form id="loginForm" autocomplete="off" novalidate>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" required placeholder="Enter username">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" required placeholder="Enter password">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="current-password">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-                <p class="login-error" id="loginError"></p>
+                <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Login</button>
+                <p class="login-error" id="loginError" style="display: none; margin-top: 1rem;"></p>
             </form>
             <a href="index.html" class="back-link" style="margin-top: 1rem; display: block; text-align: center;">← Back to Home</a>
         </div>
@@ -414,20 +419,83 @@
             uploadPage.style.display = 'block';
         }
         
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value.toLowerCase();
-            const password = document.getElementById('password').value;
+        // Login handler function
+        async function handleLogin() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
             
-            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
-                sessionStorage.setItem('tugiLoggedIn', 'true');
-                showUploadPage();
-                loginError.textContent = '';
-            } else {
-                loginError.textContent = 'Invalid credentials. Access denied.';
-                document.getElementById('password').value = '';
+            // Clear previous errors
+            loginError.textContent = '';
+            loginError.style.display = 'none';
+            
+            // Validate inputs
+            if (!username || !password) {
+                loginError.textContent = 'Please enter both username and password.';
+                loginError.style.display = 'block';
+                return;
             }
+            
+            // Disable button during login attempt
+            const loginBtn = document.getElementById('loginSubmitBtn');
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+            
+            try {
+                // Try API login first, fallback to hardcoded credentials
+                if (window.api && window.api.auth) {
+                    try {
+                        const response = await window.api.auth.login(username, password);
+                        if (response.token) {
+                            window.setAuthToken(response.token);
+                            sessionStorage.setItem('tugiLoggedIn', 'true');
+                            showUploadPage();
+                            return;
+                        }
+                    } catch (apiError) {
+                        console.log('API login failed, trying local credentials:', apiError);
+                    }
+                }
+                
+                // Fallback to local credentials check
+                if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                    sessionStorage.setItem('tugiLoggedIn', 'true');
+                    showUploadPage();
+                    loginError.textContent = '';
+                    loginError.style.display = 'none';
+                } else {
+                    loginError.textContent = 'Invalid credentials. Please check your username and password.';
+                    loginError.style.display = 'block';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                loginError.textContent = 'An error occurred. Please try again.';
+                loginError.style.display = 'block';
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+            }
+        }
+        
+        // Form submit handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            await handleLogin();
         });
+        
+        // Button click handler (for mobile touch events)
+        const loginBtn = document.getElementById('loginSubmitBtn');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                await handleLogin();
+            });
+        }
         
         const fileUploadArea = document.getElementById('fileUploadArea');
         const coverUploadArea = document.getElementById('coverUploadArea');
