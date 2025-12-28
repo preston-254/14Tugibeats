@@ -272,10 +272,16 @@
             
             .toggle-password {
                 right: 0.5rem;
+                top: 50%;
+                transform: translateY(-50%);
                 padding: 0.4rem;
                 font-size: 1.1rem;
-                min-width: 2.2rem;
-                min-height: 2.2rem;
+                min-width: 2.5rem;
+                min-height: 2.5rem;
+            }
+            
+            .toggle-password:active {
+                transform: translateY(-50%) scale(0.9);
             }
             
             .eye-icon {
@@ -832,7 +838,7 @@
             }
         });
 
-        document.getElementById('posterForm').addEventListener('submit', (e) => {
+        document.getElementById('posterForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = new FormData(e.target);
