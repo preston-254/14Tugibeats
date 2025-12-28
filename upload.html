@@ -163,6 +163,49 @@
             margin-top: 1rem;
             min-height: 20px;
         }
+        
+        .password-group {
+            position: relative;
+        }
+        
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-input-wrapper input {
+            padding-right: 3rem;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .toggle-password:hover {
+            color: var(--primary-color);
+        }
+        
+        .toggle-password:active {
+            transform: scale(0.95);
+        }
+        
+        .eye-icon {
+            display: inline-block;
+            user-select: none;
+        }
         .admin-badge {
             display: inline-block;
             background: var(--gradient-1);
@@ -236,9 +279,14 @@
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required placeholder="Enter username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
                 </div>
-                <div class="form-group">
+                <div class="form-group password-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="current-password">
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="current-password">
+                        <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">
+                            <span class="eye-icon">👁️</span>
+                        </button>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Login</button>
                 <p class="login-error" id="loginError" style="display: none; margin-top: 1rem;"></p>
@@ -522,6 +570,45 @@
                 e.preventDefault();
                 e.stopPropagation();
                 await handleLogin();
+            });
+        }
+        
+        // Password toggle functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+                // Update eye icon
+                const eyeIcon = togglePassword.querySelector('.eye-icon');
+                if (eyeIcon) {
+                    eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+                }
+            });
+        }
+        
+        // Also handle form submission on Enter key in password field
+        if (passwordInput) {
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleLogin();
+                }
+            });
+        }
+        
+        // Handle Enter key in username field
+        const usernameInput = document.getElementById('username');
+        if (usernameInput) {
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    passwordInput.focus();
+                }
             });
         }
         
