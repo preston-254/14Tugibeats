@@ -171,7 +171,7 @@
         .password-input-wrapper {
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             width: 100%;
         }
         
@@ -179,27 +179,28 @@
             width: 100%;
             padding-right: 3.5rem;
             box-sizing: border-box;
+            line-height: 1.5;
         }
         
         .toggle-password {
             position: absolute;
-            right: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
+            right: 0.5rem;
+            top: 0;
+            bottom: 0;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0 0.75rem;
             color: var(--text-secondary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
             z-index: 10;
             min-width: 2.5rem;
-            min-height: 2.5rem;
-            border-radius: 50%;
+            border-radius: 0;
         }
         
         .toggle-password:hover {
@@ -208,7 +209,7 @@
         }
         
         .toggle-password:active {
-            transform: translateY(-50%) scale(0.9);
+            transform: scale(0.95);
             background: rgba(102, 126, 234, 0.2);
         }
         
@@ -493,8 +494,8 @@
     <script src="api.js"></script>
     <script>
         // Authentication - Using API
-        const CORRECT_USERNAME = 'tugi';
-        const CORRECT_PASSWORD = '14tugi2024';
+        const CORRECT_USERNAME = '14tugi@gmail.com';
+        const CORRECT_PASSWORD = '14tugi2026';
         
         const loginModal = document.getElementById('loginModal');
         const uploadPage = document.getElementById('uploadPage');
