@@ -1,0 +1,16 @@
+# Backend files - don't deploy to Vercel frontend
+server.js
+routes/
+models/
+scripts/
+package.json
+package-lock.json
+node_modules/
+uploads/
+.env
+.env.local
+
+# Documentation files (optional - can remove if you want)
+*.md
+!README.md
+
