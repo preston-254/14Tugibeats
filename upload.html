@@ -172,15 +172,20 @@
             position: relative;
             display: flex;
             align-items: center;
+            width: 100%;
         }
         
         .password-input-wrapper input {
-            padding-right: 3rem;
+            width: 100%;
+            padding-right: 3.5rem;
+            box-sizing: border-box;
         }
         
         .toggle-password {
             position: absolute;
-            right: 0.5rem;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
             background: transparent;
             border: none;
             cursor: pointer;
@@ -189,22 +194,35 @@
             align-items: center;
             justify-content: center;
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: all 0.3s;
             z-index: 10;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+            border-radius: 50%;
         }
         
         .toggle-password:hover {
             color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
         }
         
         .toggle-password:active {
-            transform: scale(0.95);
+            transform: translateY(-50%) scale(0.9);
+            background: rgba(102, 126, 234, 0.2);
+        }
+        
+        .toggle-password:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
         
         .eye-icon {
             display: inline-block;
             user-select: none;
+            pointer-events: none;
+            font-size: 1.2rem;
+            line-height: 1;
         }
         .admin-badge {
             display: inline-block;
@@ -244,6 +262,22 @@
             
             .login-header h2 {
                 font-size: 1.5rem;
+            }
+            
+            .password-input-wrapper input {
+                padding-right: 3rem;
+            }
+            
+            .toggle-password {
+                right: 0.5rem;
+                padding: 0.4rem;
+                font-size: 1.1rem;
+                min-width: 2.2rem;
+                min-height: 2.2rem;
+            }
+            
+            .eye-icon {
+                font-size: 1rem;
             }
         }
     </style>
