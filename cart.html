@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - 14 Tugi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                    <img src="images/Tugi.jpg" alt="14 Tugi" class="brand-logo" onerror="this.style.display='none';">
+                    <span class="brand-number">14</span>
+                    <span class="brand-name">TUGI</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#beats">Beats</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h1 class="cart-title">Cart</h1>
+            
+            <div class="cart-layout">
+                <!-- Left: Cart Items -->
+                <div class="cart-items-section">
+                    <!-- Billing Info Section -->
+                    <div class="billing-info-card">
+                        <div class="billing-info-header">
+                            <h3>Billing and licensing information</h3>
+                            <button class="btn-add-info">
+                                <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px;">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add info
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cart Items -->
+                    <div class="cart-items-list" id="cartItemsList">
+                        <!-- Items will be dynamically added here -->
+                        <div class="empty-cart-message" id="emptyCartMessage">
+                            <p>Your cart is empty</p>
+                            <a href="index.html#beats" class="btn-browse-beats">Browse Beats</a>
+                        </div>
+                    </div>
+
+                    <!-- Discount Banner -->
+                    <div class="discount-banner" id="discountBanner" style="display: none;">
+                        Add 2 more TRACK with a MP3 Lease Contract to your cart to activate Buy 2 tracks, Get 1 Free! bulk discount.
+                    </div>
+                </div>
+
+                <!-- Right: Cart Summary -->
+                <div class="cart-summary-section">
+                    <div class="cart-summary-card">
+                        <h2 class="summary-title">Cart Summary</h2>
+                        <button class="btn-share-cart">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;">
+                                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                            Share cart
+                        </button>
+
+                        <div class="summary-breakdown">
+                            <div class="summary-row">
+                                <span>Items Total</span>
+                                <span id="itemsTotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>
+                                    Service Fee
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="info-icon" title="Service fee">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </span>
+                                <span id="serviceFee">$0.00</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                                <span>Subtotal (<span id="itemCount">0</span> item)</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="auth-section">
+                            <p class="auth-text">Continue as guest, or</p>
+                            <div class="auth-links">
+                                <a href="#" class="auth-link">Sign in</a>
+                                <span>or</span>
+                                <a href="#" class="auth-link">Sign up</a>
+                            </div>
+                        </div>
+
+                        <button class="btn-checkout" id="proceedToCheckout" disabled>
+                            Proceed to Checkout
+                        </button>
+
+                        <div class="checkout-disclaimer">
+                            <p>By clicking the "Proceed to checkout" button, you agree to our</p>
+                            <div class="disclaimer-links">
+                                <a href="#">Refund Policy</a>,
+                                <a href="#">Terms of Service</a>, and
+                                <a href="#">Privacy Policy</a>.
+                            </div>
+                            <p class="tax-note">Taxes may apply.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Help Button -->
+    <button class="get-help-btn" onclick="alert('Get Help feature coming soon!')">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        Get Help
+    </button>
+
+    <script src="cart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

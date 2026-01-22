@@ -40,6 +40,81 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Add to cart functionality
+function addToCart(title, price, image, category) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    const cartItem = {
+        id: Date.now(),
+        title: title,
+        price: parseFloat(price),
+        image: image || 'images/Tugi.jpg',
+        category: category || 'all',
+        dateAdded: new Date().toISOString()
+    };
+    
+    cart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Show notification
+    showCartNotification();
+    
+    // Update cart count if element exists
+    updateCartCount();
+}
+
+function showCartNotification() {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 2rem;
+        background: #1db954;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 10001;
+        animation: slideIn 0.3s ease-out;
+        font-weight: 600;
+    `;
+    notification.textContent = '✓ Added to cart!';
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+function updateCartCount() {
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartCount.textContent = cart.length;
+        cartCount.style.display = cart.length > 0 ? 'flex' : 'none';
+    }
+}
+
+// Update cart count on page load
+function updateCartCount() {
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartCount.textContent = cart.length;
+        cartCount.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+    }
+}
+
+// Update cart count on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+} else {
+    updateCartCount();
+}
+
 // Beat Filter Functionality
 const filterButtons = document.querySelectorAll('.filter-btn');
 const beatCards = document.querySelectorAll('.beat-card');
@@ -101,7 +176,7 @@ playButtons.forEach(button => {
             }
             
             if (timerElement) {
-                timerElement.textContent = '0:30';
+                timerElement.textContent = '2:00';
             }
         } else {
             // Start playing
@@ -114,7 +189,7 @@ playButtons.forEach(button => {
                     otherWaveform.style.animationPlayState = 'paused';
                 }
                 if (otherTimer) {
-                    otherTimer.textContent = '0:30';
+                    otherTimer.textContent = '2:00';
                 }
                 
                 // Clear other timers
@@ -132,15 +207,17 @@ playButtons.forEach(button => {
             `;
             waveform.style.animationPlayState = 'running';
             
-            // Start sample timer (30 seconds)
+            // Start sample timer (2 minutes = 120 seconds)
             if (timerElement) {
-                let seconds = 30;
-                timerElement.textContent = `0:${seconds.toString().padStart(2, '0')}`;
+                let seconds = 120; // 2 minutes
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerElement.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
                 
                 const timerId = setInterval(() => {
                     seconds--;
                     if (seconds < 0) {
-                        // Auto-stop after 30 seconds
+                        // Auto-stop after 2 minutes
                         clearInterval(timerId);
                         beatCard.classList.remove('playing');
                         button.innerHTML = `
@@ -149,7 +226,7 @@ playButtons.forEach(button => {
                             </svg>
                         `;
                         waveform.style.animationPlayState = 'paused';
-                        timerElement.textContent = '0:30';
+                        timerElement.textContent = '2:00';
                         delete sampleTimers[beatCard.id || beatCard];
                     } else {
                         const mins = Math.floor(seconds / 60);
