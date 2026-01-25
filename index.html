@@ -23,11 +23,11 @@
                 <li><a href="#hits">Hits</a></li>
                 <li><a href="#beats">Beats</a></li>
                 <li><a href="#collaborations">Artists</a></li>
-                <li><a href="#piano">Play Piano</a></li>
                 <li><a href="#booking">Book Session</a></li>
                 <li><a href="#listening-parties">Listening Parties</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">🛒 Cart <span id="cartCount" style="display: none; background: var(--primary-color); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.75rem; margin-left: 0.25rem; display: inline-flex; align-items: center; justify-content: center;">0</span></a></li>
                 <li><a href="upload.html" class="upload-link">🔒 Upload</a></li>
             </ul>
             <div class="hamburger">
@@ -38,151 +38,484 @@
         </div>
     </nav>
 
-    <!-- Floating Music Icons -->
-    <div class="floating-icons">
-        <div class="floating-icon music-note-1">♪</div>
-        <div class="floating-icon music-note-2">♫</div>
-        <div class="floating-icon music-note-3">♬</div>
-        <div class="floating-icon music-note-4">♩</div>
-        <div class="floating-icon headphones">🎧</div>
-        <div class="floating-icon vinyl">💿</div>
-        <div class="floating-icon mic">🎤</div>
-        <div class="floating-icon speaker">🔊</div>
-    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="vinyl-record"></div>
-            <div class="sound-waves">
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
+        <div class="hero-container">
+            <div class="hero-left">
+                <h1 class="hero-title">
+                    <span class="title-line">YOUR FIRST HIT STARTS</span>
+                    <span class="title-line">HERE</span>
+                </h1>
+                <div class="hero-search">
+                    <div class="search-box-large">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" id="heroSearchInput" placeholder="Explore new sounds - search for anything" autocomplete="off">
+                        <button class="search-btn-large">Search</button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">14 TUGI</span>
-                <span class="title-subtitle">Music Producer & Sound Engineer</span>
-            </h1>
-            <p class="hero-description">Crafting hits that define generations. From studio to stage, bringing your sound to life.</p>
-            <div class="hero-buttons">
-                <a href="#beats" class="btn btn-primary">Shop Beats</a>
-                <a href="#hits" class="btn btn-secondary">Listen to Hits</a>
+            <div class="hero-right">
+                <div class="hero-background-image">
+                    <img src="images/background/WhatsApp Image 2026-01-12 at 17.31.08.jpeg" alt="Featured Beat" onerror="this.style.display='none';">
+                </div>
+                <div class="hero-featured-beat">
+                    <div class="featured-beat-title">{SLAYR X REX X OSAMASON} ~ YAYA</div>
+                    <div class="featured-beat-artist">
+                        <span>HENRY HIRTZ</span>
+                        <button class="featured-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
         </div>
     </section>
 
-    <!-- Hits Section -->
-    <section id="hits" class="hits-section">
+    <!-- Trending Tracks Section -->
+    <section id="hits" class="trending-section">
         <div class="container">
-            <h2 class="section-title">Big Hits</h2>
-            <p class="section-subtitle">Chart-topping productions that made waves</p>
-            <div class="hits-grid">
-                <div class="hit-card featured">
-                    <div class="hit-artwork">
-                        <img src="images/digii 1.jpg" alt="Digii 1" class="song-cover" onerror="this.style.display='none';">
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 class="section-title">Trending tracks</h2>
+                <a href="#" style="color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 500;">See more</a>
+            </div>
+            <div class="trending-grid">
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/digii 1.jpg" alt="Digii 1" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="ad-badge">AD</div>
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
-                        <div class="hit-badge">Featured</div>
                     </div>
-                    <div class="hit-info">
-                        <h3>Digii 1</h3>
-                        <p class="hit-artists">Mr Tee ft Frost ft Chacha</p>
-                        <p class="hit-role">Produced by 14 Tugi</p>
-                        <div class="spotify-player-wrapper">
-                            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3n9c9dQCo1J7fayk1LdwZR?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Digii 1 - Spotify Player"></iframe>
-                        </div>
+                    <div class="trending-info">
+                        <h3 class="trending-title">Digii 1</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$24.95</button>
                     </div>
                 </div>
-                <div class="hit-card">
-                    <div class="hit-artwork">
-                        <img src="images/Nakumiss.jpg" alt="Nakumiss" class="song-cover" onerror="this.style.display='none';">
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/Nakumiss.jpg" alt="Nakumiss" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="ad-badge">AD</div>
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
                     </div>
-                    <div class="hit-info">
-                        <h3>Nakumiss</h3>
-                        <p class="hit-artists">Genesis ft Brandy</p>
-                        <p class="hit-role">Produced by 14 Tugi</p>
-                        <div class="spotify-player-wrapper">
-                            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5PTgkGqQRgkvxkOu5cRoMS?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Nakumiss - Spotify Player"></iframe>
-                        </div>
+                    <div class="trending-info">
+                        <h3 class="trending-title">Nakumiss</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$19.99</button>
                     </div>
                 </div>
-                <div class="hit-card">
-                    <div class="hit-artwork">
-                        <img src="images/Tugi.jpg" alt="Tugi" class="song-cover" onerror="this.style.display='none';">
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/Tugi.jpg" alt="Tugi Beat" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="fire-badge">🔥</div>
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
                     </div>
-                    <div class="hit-info">
-                        <h3>More Hits</h3>
-                        <p class="hit-artists">Various Artists</p>
-                        <p class="hit-role">Produced by 14 Tugi</p>
+                    <div class="trending-info">
+                        <h3 class="trending-title">200 Beats For $50...</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$49.99</button>
+                    </div>
+                </div>
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/mr Tee.jpg" alt="Mr Tee Beat" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="trending-info">
+                        <h3 class="trending-title">11K | BUY 1 GET 1 FREE</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$30.00</button>
+                    </div>
+                </div>
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/Genesis.jpg" alt="Genesis Beat" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="ad-badge">AD</div>
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="trending-info">
+                        <h3 class="trending-title">Ain't Easy | 2+2 FREE...</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$39.95</button>
+                    </div>
+                </div>
+                <div class="trending-card">
+                    <div class="trending-artwork">
+                        <img src="images/Brandy maina.jpg" alt="Brandy Beat" class="trending-cover" onerror="this.style.display='none';">
+                        <div class="play-overlay">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="trending-info">
+                        <h3 class="trending-title">Premium Type Beat</h3>
+                        <p class="trending-artist">14 Tugi</p>
+                        <button class="trending-buy-btn">$24.95</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Collaborating Artists Section -->
-            <div class="artists-section">
-                <h2 class="section-title" style="margin-top: 4rem;">Collaborating Artists</h2>
-                <p class="section-subtitle">Major artists 14 Tugi has worked with</p>
-                <div class="artists-grid">
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/mr Tee.jpg" alt="Mr Tee" onerror="this.onerror=null; this.style.display='none'; this.parentElement.querySelector('.artist-placeholder').style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Mr Tee</div>
-                        </div>
-                        <div class="artist-name">Mr Tee</div>
+    <!-- Trusted By Section -->
+    <section class="trusted-section">
+        <div class="container">
+            <p class="trusted-label">Trusted by:</p>
+            <div class="trusted-logos-wrapper">
+                <div class="trusted-logos">
+                    <div class="trusted-logo">
+                        <div class="logo-icon">🌴</div>
+                        <span class="logo-text">ISLAND</span>
                     </div>
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/pres._10.jpg" alt="Pres._10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Pres._10</div>
-                        </div>
-                        <div class="artist-name">Pres._10</div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-large">SONY MUSIC</span>
                     </div>
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/Genesis.jpg" alt="Genesis" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Genesis</div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-w">W</div>
+                        <div class="logo-text-stacked">
+                            <span>WARNER</span>
+                            <span>MUSIC</span>
+                            <span>GROUP</span>
                         </div>
-                        <div class="artist-name">Genesis</div>
                     </div>
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/Brandy maina.jpg" alt="Brandy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Brandy</div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-globe">🌐</div>
+                        <div class="logo-text-stacked">
+                            <span>UNIVERSAL</span>
+                            <span>MUSIC GROUP</span>
                         </div>
-                        <div class="artist-name">Brandy</div>
                     </div>
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/wadagliz.jpg" alt="Wadagliz" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Wadagliz</div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-fortnite">FORTNITE</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-a">A</div>
+                        <span class="logo-text">ATLANTIC</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-large">PUMA</span>
+                    </div>
+                </div>
+                <div class="trusted-logos trusted-logos-duplicate">
+                    <div class="trusted-logo">
+                        <div class="logo-icon">🌴</div>
+                        <span class="logo-text">ISLAND</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-large">SONY MUSIC</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-w">W</div>
+                        <div class="logo-text-stacked">
+                            <span>WARNER</span>
+                            <span>MUSIC</span>
+                            <span>GROUP</span>
                         </div>
-                        <div class="artist-name">Wadagliz</div>
                     </div>
-                    <div class="artist-card">
-                        <div class="artist-image">
-                            <img src="images/Willieoeba.jpg" alt="Willieoeba" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="artist-placeholder" style="display: none;">Willieoeba</div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-globe">🌐</div>
+                        <div class="logo-text-stacked">
+                            <span>UNIVERSAL</span>
+                            <span>MUSIC GROUP</span>
                         </div>
-                        <div class="artist-name">Willieoeba</div>
                     </div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-fortnite">FORTNITE</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <div class="logo-icon-a">A</div>
+                        <span class="logo-text">ATLANTIC</span>
+                    </div>
+                    <div class="trusted-logo">
+                        <span class="logo-text-large">PUMA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kickstart Section -->
+    <section class="kickstart-section">
+        <div class="kickstart-container">
+            <div class="kickstart-content">
+                <h2 class="kickstart-title">A community that understands you</h2>
+                <p class="kickstart-description">We're creators just like you. Whether you need our support team or want to collaborate with like-minded creatives, there's a home for you.</p>
+                <button class="kickstart-btn">Get started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Made on Tugi Section -->
+    <section class="made-on-tugi-section">
+        <div class="made-on-tugi-container">
+            <div class="made-on-tugi-content">
+                <div class="made-on-tugi-text">
+                    <span class="made-on-tugi-hashtag">#MADEONTUGI</span>
+                    <h2 class="made-on-tugi-title">YES, THAT BEAT WAS PRODUCED BY 14 TUGI.</h2>
+                    <p class="made-on-tugi-description">Millions of artists have found their perfect beat on our marketplace.</p>
+                    <button class="made-on-tugi-btn">Your next hit is waiting ></button>
+                </div>
+                <div class="made-on-tugi-grid-wrapper">
+                    <div class="made-on-tugi-grid made-on-tugi-grid-up">
+                        <div class="made-on-tugi-card">
+                            <img src="images/digii 1.jpg" alt="Digii 1" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Digii 1</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Nakumiss.jpg" alt="Nakumiss" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Nakumiss</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Genesis.jpg" alt="Genesis" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Genesis</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Brandy maina.jpg" alt="Brandy" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Brandy</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/mr Tee.jpg" alt="Mr Tee" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Mr Tee</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Tugi.jpg" alt="Tugi" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>200 Beats</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="made-on-tugi-card">
+                            <img src="images/digii 1.jpg" alt="Digii 1" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Digii 1</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Nakumiss.jpg" alt="Nakumiss" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Nakumiss</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Genesis.jpg" alt="Genesis" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Genesis</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Brandy maina.jpg" alt="Brandy" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Brandy</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/mr Tee.jpg" alt="Mr Tee" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Mr Tee</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Tugi.jpg" alt="Tugi" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>200 Beats</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="made-on-tugi-grid made-on-tugi-grid-down">
+                        <div class="made-on-tugi-card">
+                            <img src="images/Tugi.jpg" alt="Tugi" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Premium Beat</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/mr Tee.jpg" alt="Mr Tee" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>11K Beat</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Brandy maina.jpg" alt="Brandy" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Brandy Maina</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Genesis.jpg" alt="Genesis" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Ain't Easy</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Nakumiss.jpg" alt="Nakumiss" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Nakumiss</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/digii 1.jpg" alt="Digii 1" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Digii 1</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="made-on-tugi-card">
+                            <img src="images/Tugi.jpg" alt="Tugi" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Premium Beat</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/mr Tee.jpg" alt="Mr Tee" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>11K Beat</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Brandy maina.jpg" alt="Brandy" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Brandy Maina</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Genesis.jpg" alt="Genesis" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Ain't Easy</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/Nakumiss.jpg" alt="Nakumiss" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Nakumiss</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                        <div class="made-on-tugi-card">
+                            <img src="images/digii 1.jpg" alt="Digii 1" onerror="this.style.display='none';">
+                            <div class="made-on-tugi-card-info">
+                                <h4>Digii 1</h4>
+                                <p>14 Tugi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Genres Section -->
+    <section class="popular-genres-section">
+        <div class="container">
+            <div class="genres-header">
+                <h2 class="section-title">Popular Genres</h2>
+                <a href="#beats" class="genres-see-more">See more</a>
+            </div>
+            <div class="genres-grid">
+                <div class="genre-card" data-genre="hiphop" onclick="filterByGenre('hiphop')">
+                    <div class="genre-image">
+                        <img src="images/genre/hiphop.webp" alt="Hip Hop" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none;"></div>
+                        <div class="genre-overlay-text">HIP-HOP</div>
+                    </div>
+                    <div class="genre-name">Hip Hop</div>
+                </div>
+                <div class="genre-card" data-genre="afrobeats" onclick="filterByGenre('afrobeats')">
+                    <div class="genre-image">
+                        <img src="images/genre/afrobeat.webp" alt="Afrobeats" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none;"></div>
+                        <div class="genre-overlay-text">AFROBEATS</div>
+                    </div>
+                    <div class="genre-name">Afrobeats</div>
+                </div>
+                <div class="genre-card" data-genre="r&b" onclick="filterByGenre('r&b')">
+                    <div class="genre-image">
+                        <img src="images/genre/rnb.webp" alt="R&B" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none;"></div>
+                        <div class="genre-overlay-text">R&B</div>
+                    </div>
+                    <div class="genre-name">R&B</div>
+                </div>
+                <div class="genre-card" data-genre="trap" onclick="filterByGenre('trap')">
+                    <div class="genre-image">
+                        <img src="images/genre/trap.webp" alt="Trap" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: none;"></div>
+                        <div class="genre-overlay-text">TRAP</div>
+                    </div>
+                    <div class="genre-name">Trap</div>
+                </div>
+                <div class="genre-card" data-genre="pop" onclick="filterByGenre('pop')">
+                    <div class="genre-image">
+                        <img src="images/genre/pop.jpg" alt="Pop" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: none;"></div>
+                        <div class="genre-overlay-text">POP</div>
+                    </div>
+                    <div class="genre-name">Pop</div>
+                </div>
+                <div class="genre-card" data-genre="electronic" onclick="filterByGenre('electronic')">
+                    <div class="genre-image">
+                        <img src="images/genre/electron.webp" alt="Electronic" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="genre-placeholder" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: none;"></div>
+                        <div class="genre-overlay-text">ELECTRONIC</div>
+                    </div>
+                    <div class="genre-name">Electronic</div>
                 </div>
             </div>
         </div>
@@ -191,13 +524,23 @@
     <!-- Beats Store Section -->
     <section id="beats" class="beats-section">
         <div class="container">
-            <h2 class="section-title">Beat Store</h2>
-            <p class="section-subtitle">Premium beats for your next hit</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 class="section-title">Beat Store</h2>
+            </div>
             
-            <div class="beat-search-container" style="margin-bottom: 2rem;">
-                <div class="search-box" style="max-width: 500px; margin: 0 auto; position: relative;">
-                    <input type="text" id="beatSearchInput" placeholder="🔍 Search beats by title, BPM, or tags..." style="width: 100%; padding: 1rem 1rem 1rem 3rem; background: var(--dark-tertiary); border: 2px solid transparent; border-radius: 25px; color: var(--text-primary); font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s;">
-                    <div style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;">🔍</div>
+            <div class="beat-search-container">
+                <div class="beat-search-box">
+                    <div class="beat-search-icons">
+                        <svg class="beat-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" stroke="#00d4ff"></circle>
+                            <path d="m21 21-4.35-4.35" stroke="#d946ef"></path>
+                        </svg>
+                        <svg class="beat-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" stroke="#00d4ff"></circle>
+                            <path d="m21 21-4.35-4.35" stroke="#d946ef"></path>
+                        </svg>
+                    </div>
+                    <input type="text" id="beatSearchInput" placeholder="Search beats by title, BPM, or tags..." class="beat-search-input">
                 </div>
             </div>
             <div class="filter-tabs">
@@ -211,6 +554,7 @@
             <div class="beats-grid">
                 <div class="beat-card" data-category="hiphop">
                     <div class="beat-player">
+                        <img src="images/digii 1.jpg" alt="Midnight Vibes" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -224,22 +568,41 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>Midnight Vibes</h3>
-                        <p class="beat-bpm">120 BPM</p>
+                        <h3 class="beat-title">Midnight Vibes</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">120 BPM</span>
+                            <span class="beat-key">Am</span>
+                            <span class="beat-duration">3:24</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">Hip Hop</span>
                             <span class="tag">Dark</span>
+                            <span class="tag">Trap</span>
                         </div>
-                        <div class="beat-price">$49.99</div>
-                        <button class="btn-buy">Add to Cart</button>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Midnight Vibes', '49.99', 'images/digii 1.jpg', 'hiphop');">$49.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="beat-card" data-category="afrobeats">
                     <div class="beat-player">
+                        <img src="images/Nakumiss.jpg" alt="Tropical Dreams" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -253,22 +616,41 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>Tropical Dreams</h3>
-                        <p class="beat-bpm">110 BPM</p>
+                        <h3 class="beat-title">Tropical Dreams</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">110 BPM</span>
+                            <span class="beat-key">C#m</span>
+                            <span class="beat-duration">3:15</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">Afrobeats</span>
                             <span class="tag">Upbeat</span>
+                            <span class="tag">Dance</span>
                         </div>
-                        <div class="beat-price">$59.99</div>
-                        <button class="btn-buy">Add to Cart</button>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Tropical Dreams', '59.99', 'images/Nakumiss.jpg', 'afrobeats');">$59.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="beat-card" data-category="r&b">
                     <div class="beat-player">
+                        <img src="images/Brandy maina.jpg" alt="Smooth Operator" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -282,22 +664,41 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>Smooth Operator</h3>
-                        <p class="beat-bpm">90 BPM</p>
+                        <h3 class="beat-title">Smooth Operator</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">90 BPM</span>
+                            <span class="beat-key">Fm</span>
+                            <span class="beat-duration">3:42</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">R&B</span>
                             <span class="tag">Smooth</span>
+                            <span class="tag">Chill</span>
                         </div>
-                        <div class="beat-price">$54.99</div>
-                        <button class="btn-buy">Add to Cart</button>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Smooth Operator', '54.99', 'images/Brandy maina.jpg', 'r&b');">$54.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="beat-card" data-category="trap">
                     <div class="beat-player">
+                        <img src="images/mr Tee.jpg" alt="Bass Drop" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -311,22 +712,41 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>Bass Drop</h3>
-                        <p class="beat-bpm">140 BPM</p>
+                        <h3 class="beat-title">Bass Drop</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">140 BPM</span>
+                            <span class="beat-key">Dm</span>
+                            <span class="beat-duration">3:08</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">Trap</span>
                             <span class="tag">Hard</span>
+                            <span class="tag">Bass</span>
                         </div>
-                        <div class="beat-price">$49.99</div>
-                        <button class="btn-buy">Add to Cart</button>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Midnight Vibes', '49.99', 'images/digii 1.jpg', 'hiphop');">$49.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="beat-card" data-category="hiphop">
                     <div class="beat-player">
+                        <img src="images/Genesis.jpg" alt="City Lights" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -340,22 +760,41 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>City Lights</h3>
-                        <p class="beat-bpm">115 BPM</p>
+                        <h3 class="beat-title">City Lights</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">115 BPM</span>
+                            <span class="beat-key">Gm</span>
+                            <span class="beat-duration">3:30</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">Hip Hop</span>
                             <span class="tag">Urban</span>
+                            <span class="tag">Street</span>
                         </div>
-                        <div class="beat-price">$49.99</div>
-                        <button class="btn-buy">Add to Cart</button>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Midnight Vibes', '49.99', 'images/digii 1.jpg', 'hiphop');">$49.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="beat-card" data-category="afrobeats">
                     <div class="beat-player">
+                        <img src="images/Tugi.jpg" alt="Island Breeze" class="beat-cover" onerror="this.style.display='none';">
                         <div class="sample-badge">SAMPLE</div>
                         <div class="beat-waveform">
                             <div class="waveform-bar"></div>
@@ -369,217 +808,36 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
-                        <div class="sample-timer">0:30</div>
+                        <div class="sample-timer">2:00</div>
+                        <div class="beat-overlay"></div>
                     </div>
                     <div class="beat-info">
-                        <h3>Island Breeze</h3>
-                        <p class="beat-bpm">105 BPM</p>
+                        <h3 class="beat-title">Island Breeze</h3>
+                        <div class="beat-artist">
+                            <span>14 Tugi</span>
+                            <svg class="verified-badge" viewBox="0 0 24 24" fill="#1DA1F2">
+                                <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.69L23 12zm-10.5 4.26l-4.59-4.59 1.41-1.41 3.18 3.18 6.18-6.18 1.41 1.41-7.59 7.59z"/>
+                            </svg>
+                        </div>
+                        <div class="beat-meta">
+                            <span class="beat-bpm">105 BPM</span>
+                            <span class="beat-key">Am</span>
+                            <span class="beat-duration">3:18</span>
+                        </div>
                         <div class="beat-tags">
                             <span class="tag">Afrobeats</span>
                             <span class="tag">Chill</span>
+                            <span class="tag">Tropical</span>
                         </div>
-                        <div class="beat-price">$59.99</div>
-                        <button class="btn-buy">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Piano Section -->
-    <section id="piano" class="piano-section">
-        <div class="container">
-            <h2 class="section-title">Play Piano</h2>
-            <p class="section-subtitle">Create your own melody with our interactive piano</p>
-            <div class="piano-container">
-                <!-- Beginner Helper Section -->
-                <div class="beginner-helpers">
-                    <div class="helper-tab active" data-tab="basics">🎹 Basics</div>
-                    <div class="helper-tab" data-tab="chords">🎵 Chords</div>
-                    <div class="helper-tab" data-tab="melodies">🎶 Melodies</div>
-                    <div class="helper-tab" data-tab="effects">🎛️ Effects</div>
-                    <div class="helper-tab" data-tab="advanced">⚙️ Advanced</div>
-                </div>
-
-                <!-- Basics Tab -->
-                <div class="helper-panel active" id="basicsPanel">
-                    <div class="helper-content">
-                        <h3>🎹 Getting Started</h3>
-                        <div class="helper-grid">
-                            <div class="helper-card">
-                                <h4>Virtual Keyboard</h4>
-                                <button class="helper-btn" id="toggleVirtualKeyboard">Show On-Screen Keyboard</button>
-                                <p>Perfect for mobile! Use touch to play</p>
-                            </div>
-                            <div class="helper-card">
-                                <h4>Scale Helper</h4>
-                                <label for="scaleSelector" class="sr-only">Select a scale</label>
-                                <select id="scaleSelector" class="helper-select" aria-label="Select a scale" title="Select a scale">
-                                    <option value="">Select a scale...</option>
-                                    <option value="c-major">C Major</option>
-                                    <option value="a-minor">A Minor</option>
-                                    <option value="g-major">G Major</option>
-                                    <option value="d-minor">D Minor</option>
-                                    <option value="f-major">F Major</option>
-                                </select>
-                                <p>Highlights keys in the selected scale</p>
-                            </div>
-                            <div class="helper-card">
-                                <h4>Metronome</h4>
-                                <div class="metronome-controls">
-                                    <label for="metronomeBPM" class="sr-only">Metronome BPM</label>
-                                    <input type="range" id="metronomeBPM" min="60" max="180" value="120" aria-label="Metronome BPM" title="Metronome BPM">
-                                    <div class="bpm-display">BPM: <span id="bpmValue">120</span></div>
-                                    <button class="helper-btn" id="toggleMetronome">Start Metronome</button>
-                                </div>
-                            </div>
+                        <div class="beat-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); addToCart('Island Breeze', '59.99', 'images/Tugi.jpg', 'afrobeats');">$59.99</button>
+                            <button class="btn-download" title="Download">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Chords Tab -->
-                <div class="helper-panel" id="chordsPanel">
-                    <div class="helper-content">
-                        <h3>🎵 Chord Mode</h3>
-                        <div class="chord-selector">
-                            <label>Select Chord:</label>
-                            <label for="chordType" class="sr-only">Select chord type</label>
-                            <select id="chordType" class="helper-select" aria-label="Select chord type" title="Select chord type">
-                                <option value="">Choose chord...</option>
-                                <option value="C-major">C Major</option>
-                                <option value="C-minor">C Minor</option>
-                                <option value="C-7th">C 7th</option>
-                                <option value="D-major">D Major</option>
-                                <option value="D-minor">D Minor</option>
-                                <option value="E-major">E Major</option>
-                                <option value="E-minor">E Minor</option>
-                                <option value="F-major">F Major</option>
-                                <option value="G-major">G Major</option>
-                                <option value="A-major">A Major</option>
-                                <option value="A-minor">A Minor</option>
-                            </select>
-                            <button class="helper-btn" id="playChord">Play Chord</button>
-                            <button class="helper-btn" id="enableChordMode">Enable Chord Mode</button>
-                            <p class="helper-note">In chord mode, pressing a single key plays the full chord!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Melodies Tab -->
-                <div class="helper-panel" id="melodiesPanel">
-                    <div class="helper-content">
-                        <h3>🎶 Preset Melodies</h3>
-                        <div class="melodies-grid">
-                            <div class="melody-card" data-melody="twinkle">
-                                <h4>Twinkle Twinkle</h4>
-                                <button class="melody-btn">Play</button>
-                            </div>
-                            <div class="melody-card" data-melody="happy">
-                                <h4>Happy Birthday</h4>
-                                <button class="melody-btn">Play</button>
-                            </div>
-                            <div class="melody-card" data-melody="scale">
-                                <h4>C Major Scale</h4>
-                                <button class="melody-btn">Play</button>
-                            </div>
-                            <div class="melody-card" data-melody="chopsticks">
-                                <h4>Chopsticks</h4>
-                                <button class="melody-btn">Play</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Effects Tab -->
-                <div class="helper-panel" id="effectsPanel">
-                    <div class="helper-content">
-                        <h3>🎛️ Sound Effects</h3>
-                        <div class="effects-grid">
-                            <div class="effect-card">
-                                <h4>Reverb</h4>
-                                <label for="reverbAmount" class="sr-only">Reverb amount</label>
-                                <input type="range" id="reverbAmount" min="0" max="100" value="0" aria-label="Reverb amount" title="Reverb amount">
-                                <span id="reverbValue">0%</span>
-                            </div>
-                            <div class="effect-card">
-                                <h4>Delay</h4>
-                                <label for="delayAmount" class="sr-only">Delay amount</label>
-                                <input type="range" id="delayAmount" min="0" max="100" value="0" aria-label="Delay amount" title="Delay amount">
-                                <span id="delayValue">0%</span>
-                            </div>
-                            <div class="effect-card">
-                                <h4>Instrument</h4>
-                                <label for="instrumentType" class="sr-only">Select instrument type</label>
-                                <select id="instrumentType" class="helper-select" aria-label="Select instrument type" title="Select instrument type">
-                                    <option value="piano">Piano</option>
-                                    <option value="organ">Organ</option>
-                                    <option value="synth">Synth</option>
-                                    <option value="strings">Strings</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Advanced Tab -->
-                <div class="helper-panel" id="advancedPanel">
-                    <div class="helper-content">
-                        <h3>⚙️ Advanced Features</h3>
-                        <div class="advanced-grid">
-                            <div class="advanced-card">
-                                <h4>Multi-Track Recording</h4>
-                                <button class="helper-btn" id="newTrack">New Track</button>
-                                <div id="tracksList"></div>
-                            </div>
-                            <div class="advanced-card">
-                                <h4>Save & Share</h4>
-                                <button class="helper-btn" id="saveRecording">Save Recording</button>
-                                <button class="helper-btn" id="shareRecording">Share Link</button>
-                            </div>
-                            <div class="advanced-card">
-                                <h4>Tempo Sync</h4>
-                                <label for="tempoSync" class="sr-only">Tempo sync</label>
-                                <input type="range" id="tempoSync" min="60" max="180" value="120" aria-label="Tempo sync" title="Tempo sync">
-                                <span>BPM: <span id="tempoValue">120</span></span>
-                                <button class="helper-btn" id="syncBeatPiano">Sync Beat & Piano</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="piano-keyboard" id="pianoKeyboard">
-                    <!-- Piano keys will be generated by JavaScript -->
-                </div>
-
-                <!-- Virtual Keyboard Overlay -->
-                <div class="virtual-keyboard" id="virtualKeyboard" style="display: none;">
-                    <div class="virtual-keys-container" id="virtualKeysContainer"></div>
-                </div>
-
-                <!-- Visual Feedback -->
-                <div class="visual-feedback">
-                    <div class="waveform-display" id="waveformDisplay">
-                        <canvas id="waveformCanvas"></canvas>
-                    </div>
-                    <div class="current-note" id="currentNote">Press a key to start</div>
-                </div>
-
-                <div class="piano-controls">
-                    <button class="piano-btn" id="clearPiano">Clear</button>
-                    <button class="piano-btn" id="recordPiano">Record</button>
-                    <button class="piano-btn" id="playRecorded">Play</button>
-                    <button class="piano-btn beat-btn" id="playBeat">🎵 Play Beat</button>
-                    <button class="piano-btn keyboard-toggle" id="keyboardToggle" title="Toggle keyboard piano mode">
-                        ⌨️ Keyboard: <span id="keyboardStatus">ON</span>
-                    </button>
-                    <div class="volume-control">
-                        <label>Volume:</label>
-                        <label for="pianoVolume" class="sr-only">Piano volume</label>
-                        <input type="range" id="pianoVolume" min="0" max="100" value="70" aria-label="Piano volume" title="Piano volume">
-                    </div>
-                </div>
-                <div class="beat-info-text">
-                    <p>💡 Play the beat and jam along on the piano! The beat will loop continuously.</p>
                 </div>
             </div>
         </div>
@@ -590,7 +848,9 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About 14 Tugi</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h2 class="section-title">About 14 Tugi</h2>
+                    </div>
                     <p>14 Tugi is a renowned music producer and sound engineer with a proven track record of creating chart-topping hits. With years of experience in the industry, he has worked with some of the biggest names in music, producing tracks that have resonated with audiences worldwide.</p>
                     <p>His signature sound combines technical excellence with creative innovation, resulting in beats that are both commercially successful and artistically compelling. From the studio to the stage, 14 Tugi brings a unique perspective to every project.</p>
                     <div class="stats">
@@ -610,15 +870,7 @@
                 </div>
                 <div class="about-image">
                     <div class="studio-visual">
-                        <div class="eq-visualizer">
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                            <div class="eq-bar"></div>
-                        </div>
+                        <img src="images/background/WhatsApp Image 2026-01-12 at 17.31.08.jpeg" alt="Studio Visual" class="studio-background-image" onerror="this.style.display='none';">
                     </div>
                 </div>
             </div>
@@ -628,8 +880,9 @@
     <!-- Booking Section -->
     <section id="booking" class="booking-section">
         <div class="container">
-            <h2 class="section-title">Book a Session</h2>
-            <p class="section-subtitle">Reserve your studio time with 14 Tugi</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 class="section-title">Book a Session</h2>
+            </div>
             <div class="booking-content">
                 <div class="booking-info">
                     <div class="info-card">
@@ -719,8 +972,9 @@
     <!-- Listening Parties Section -->
     <section id="listening-parties" class="listening-parties-section">
         <div class="container">
-            <h2 class="section-title">DJ Listening Parties</h2>
-            <p class="section-subtitle">Join DJ Tugi ft DJ Ress for exclusive listening experiences every 3 months</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 class="section-title">DJ Listening Parties</h2>
+            </div>
             <div class="parties-content">
                 <div class="parties-info">
                     <div class="party-intro">
@@ -765,8 +1019,9 @@
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Ready to create your next hit? Let's work together</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 class="section-title">Get In Touch</h2>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
@@ -843,9 +1098,103 @@
 
     <script src="api-config.js"></script>
     <script src="api.js"></script>
-    <script src="piano.js"></script>
-    <script src="piano-features.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Filter by genre function - called when genre card is clicked
+        function filterByGenre(genre) {
+            // Scroll to beats section
+            const beatsSection = document.getElementById('beats');
+            if (beatsSection) {
+                beatsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Find and click the corresponding filter button
+            setTimeout(() => {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                let found = false;
+                filterButtons.forEach(button => {
+                    const filterValue = button.getAttribute('data-filter');
+                    if (filterValue === genre) {
+                        button.click();
+                        found = true;
+                    }
+                });
+                
+                // If genre filter doesn't exist, show all beats
+                if (!found) {
+                    filterButtons.forEach(button => {
+                        if (button.getAttribute('data-filter') === 'all') {
+                            button.click();
+                        }
+                    });
+                }
+            }, 300); // Small delay to ensure scroll has started
+        }
+        
+        // Add to cart function (accessible globally)
+        function addToCart(title, price, image, category) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const cartItem = {
+                id: Date.now(),
+                title: title,
+                price: parseFloat(price),
+                image: image || 'images/Tugi.jpg',
+                category: category || 'all',
+                dateAdded: new Date().toISOString()
+            };
+            
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+            }
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 2rem;
+                background: #1db954;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 10001;
+                font-weight: 600;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = '✓ Added to cart!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+        
+        // Update cart count on page load
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartCount.textContent = cart.length;
+                cartCount.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+            }
+        }
+        
+        // Initialize cart count
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateCartCount);
+        } else {
+            updateCartCount();
+        }
+    </script>
 </body>
 </html>
 

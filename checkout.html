@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - 14 Tugi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                    <img src="images/Tugi.jpg" alt="14 Tugi" class="brand-logo" onerror="this.style.display='none';">
+                    <span class="brand-number">14</span>
+                    <span class="brand-name">TUGI</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#beats">Beats</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <h1 class="checkout-title">Checkout</h1>
+            
+            <div class="checkout-layout">
+                <!-- Left: Payment Form -->
+                <div class="checkout-form-section">
+                    <!-- Payment Method Selection -->
+                    <div class="payment-methods-card">
+                        <h2 class="section-heading">Select Payment Method</h2>
+                        <div class="payment-methods-grid">
+                            <div class="payment-method-option" data-method="card">
+                                <input type="radio" name="paymentMethod" id="paymentCard" value="card" checked>
+                                <label for="paymentCard">
+                                    <div class="payment-icon">💳</div>
+                                    <span>Credit/Debit Card</span>
+                                </label>
+                            </div>
+                            <div class="payment-method-option" data-method="paypal">
+                                <input type="radio" name="paymentMethod" id="paymentPaypal" value="paypal">
+                                <label for="paymentPaypal">
+                                    <div class="payment-icon">🅿️</div>
+                                    <span>PayPal</span>
+                                </label>
+                            </div>
+                            <div class="payment-method-option" data-method="binance">
+                                <input type="radio" name="paymentMethod" id="paymentBinance" value="binance">
+                                <label for="paymentBinance">
+                                    <div class="payment-icon">₿</div>
+                                    <span>Binance</span>
+                                </label>
+                            </div>
+                            <div class="payment-method-option" data-method="mpesa">
+                                <input type="radio" name="paymentMethod" id="paymentMpesa" value="mpesa">
+                                <label for="paymentMpesa">
+                                    <div class="payment-icon">📱</div>
+                                    <span>M-Pesa STK Push</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Payment Form -->
+                    <div class="payment-form-card" id="cardPaymentForm">
+                        <h2 class="section-heading">Card Details</h2>
+                        <form id="cardPaymentFormElement">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" id="cardCVV" placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Cardholder Name</label>
+                                <input type="text" id="cardName" placeholder="John Doe" required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- PayPal Payment Form -->
+                    <div class="payment-form-card" id="paypalPaymentForm" style="display: none;">
+                        <h2 class="section-heading">PayPal Payment</h2>
+                        <p class="payment-info">Click the PayPal button below to complete your payment securely.</p>
+                        <div id="paypal-button-container"></div>
+                    </div>
+
+                    <!-- Binance Payment Form -->
+                    <div class="payment-form-card" id="binancePaymentForm" style="display: none;">
+                        <h2 class="section-heading">Binance Payment</h2>
+                        <div class="form-group">
+                            <label>Binance Wallet Address</label>
+                            <input type="text" id="binanceAddress" placeholder="Enter your Binance wallet address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Amount (USDT)</label>
+                            <input type="text" id="binanceAmount" readonly>
+                        </div>
+                        <div class="qr-code-placeholder">
+                            <p>QR Code will be generated after confirmation</p>
+                        </div>
+                    </div>
+
+                    <!-- M-Pesa Payment Form -->
+                    <div class="payment-form-card" id="mpesaPaymentForm" style="display: none;">
+                        <h2 class="section-heading">M-Pesa STK Push</h2>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="mpesaPhone" placeholder="254712345678" required>
+                            <small class="form-hint">Enter your M-Pesa registered phone number</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Amount (KES)</label>
+                            <input type="text" id="mpesaAmount" readonly>
+                        </div>
+                        <button type="button" class="btn-mpesa" id="mpesaButton">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px; margin-right: 8px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Initiate STK Push
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Order Summary -->
+                <div class="checkout-summary-section">
+                    <div class="checkout-summary-card">
+                        <h2 class="summary-title">Order Summary</h2>
+                        
+                        <div class="order-items" id="checkoutOrderItems">
+                            <!-- Items will be populated from cart -->
+                        </div>
+
+                        <div class="summary-breakdown">
+                            <div class="summary-row">
+                                <span>Items Total</span>
+                                <span id="checkoutItemsTotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Service Fee</span>
+                                <span id="checkoutServiceFee">$0.00</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="checkoutTotal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-complete-payment" id="completePaymentBtn" disabled>
+                            Complete Payment
+                        </button>
+
+                        <div class="security-badges">
+                            <div class="security-badge">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                                </svg>
+                                <span>Secure Payment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Help Button -->
+    <button class="get-help-btn" onclick="alert('Get Help feature coming soon!')">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        Get Help
+    </button>
+
+    <!-- PayPal SDK -->
+    <script>
+        // PayPal Client ID - Replace with your actual Client ID from PayPal Developer Dashboard
+        // Get your Client ID at: https://developer.paypal.com/dashboard/applications/sandbox
+        // For production, use your Live Client ID from the Live tab
+        const PAYPAL_CLIENT_ID = 'AbcbNWN6Xv07dOTGwb0wwTSefz-QC0h_hNiSmT2PK06hKZ9OC7OaO79OHxvCBaQFIuYtuTSGGaS-aDUh';
+        
+        // Determine environment (sandbox or live)
+        // Change to 'production' when ready for live payments
+        const PAYPAL_ENVIRONMENT = 'sandbox'; // or 'production'
+        
+        // Load PayPal SDK dynamically with proper error handling
+        if (PAYPAL_CLIENT_ID && PAYPAL_CLIENT_ID !== 'YOUR_CLIENT_ID') {
+            const script = document.createElement('script');
+            // Include components needed for buttons
+            script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture&components=buttons`;
+            script.async = true;
+            script.onerror = function() {
+                console.error('Failed to load PayPal SDK');
+                const container = document.getElementById('paypal-button-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div style="padding: 2rem; text-align: center; background: var(--dark-tertiary); border-radius: 8px; color: var(--text-secondary); border: 1px solid var(--border-color);">
+                            <p style="margin-bottom: 1rem; color: var(--text-primary);">Failed to load PayPal. Please check your internet connection.</p>
+                            <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                                Retry
+                            </button>
+                        </div>
+                    `;
+                }
+            };
+            script.onload = function() {
+                console.log('PayPal SDK loaded successfully');
+            };
+            document.head.appendChild(script);
+        } else {
+            console.warn('PayPal Client ID not configured. Please set PAYPAL_CLIENT_ID in checkout.html');
+        }
+    </script>
+    <script src="checkout.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
